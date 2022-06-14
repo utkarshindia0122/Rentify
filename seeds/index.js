@@ -1,5 +1,5 @@
 const mongoose= require('mongoose');
-const cities=require('./cities');
+const cities=require('./in');
 const {places,descriptors}=require('./seedHelpers');
 const House=require('../models/house');
 //our database ,, database name -- rentify
@@ -23,9 +23,9 @@ const sample=array=>array[Math.floor(Math.random()*array.length)];
 const seedDB=async()=>{
     await House.deleteMany({});
     for(let i=0;i<50;i++){
-        const random1000=Math.floor(Math.random()*1000);
+        const random=Math.floor(Math.random()*406);
        const rent= new House({
-            location:`${cities[random1000].city},${cities[random1000].state}`,
+            location:`${cities[random].city},${cities[random].admin_name}`,
             title:`${sample(descriptors)} ${sample(places)}`
         })
         await rent.save();
