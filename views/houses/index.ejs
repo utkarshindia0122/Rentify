@@ -8,9 +8,12 @@
 </head>
 <body>
     <h1>All Houses</h1>
+    <div>
+        <a href="/houses/new">New House</a>
+    </div>
     <ul>
         <% for(let house of houses){%>
-            <li><%=house.title%></li>
+            <li><a href="/houses/<%=house._id%>"><%=house.title%> </a></li>
          <%}%>
     </ul>
 </body>

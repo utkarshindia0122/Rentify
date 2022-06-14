@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit House</title>
+</head>
+<body>
+    <h1>Edit House</h1>
+    <!-- _method=PUT is from method override , it fakes POST request as PUT request -->
+    <form action="/houses/<%=house._id%>?_method=PUT" method="POST">
+        <div>
+            <label for="title">Title</label>
+            <input type="text" id="title" name="house[title]" value="<%=house.title%>">
+        </div>
+        <div>
+            <label for="location">Location</label>
+            <input type="text" id="location" name="house[location]" value="<%=house.location%>">
+        </div>
+        <button>Save</button>
+    </form>
+    <a href="/houses/<%=house._id%>">back</a>
+</body>
+</html>
