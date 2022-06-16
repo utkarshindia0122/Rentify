@@ -23,15 +23,20 @@ const sample=array=>array[Math.floor(Math.random()*array.length)];
 const seedDB=async()=>{
     await House.deleteMany({});
     for(let i=0;i<50;i++){
-        const random=Math.floor(Math.random()*406);
-       const rent= new House({
-            location:`${cities[random].city},${cities[random].admin_name}`,
-            title:`${sample(descriptors)} ${sample(places)}`
+        const random= Math.floor(Math.random() * 406);
+        const price = Math.floor(Math.random() * 20) + 10;
+        const rent = new House({
+            location: `${cities[random].city}, ${cities[random].state}`,
+            title: `${sample(descriptors)} ${sample(places)}`,
+            image: 'https://source.unsplash.com/collection/483251',
+            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam dolores vero perferendis laudantium, consequuntur voluptatibus nulla architecto, sit soluta esse iure sed labore ipsam a cum nihil atque molestiae deserunt!',
+            price
         })
         await rent.save();
     }
 }
 
-seedDB().then(()=>{
+seedDB().then(() => {
     mongoose.connection.close();
-});
+})
+
