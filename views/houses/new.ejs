@@ -2,31 +2,32 @@
 <div class="row">
     <h1 class="text-center">New House</h1>
     <div class="col-6 offset-3">
-        <form action="/houses" method="POST">
+                        <!-- novalidate will not validate the form by browser -->
+        <form action="/houses" method="POST" novalidate class="validated-form">
             <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
-                <input class="form-control" type="text" id="title" name="house[title]">
+                <input class="form-control" type="text" id="title" name="house[title]" required>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="location">Location</label>
-                <input class="form-control" type="text" id="location" name="house[location]">
+                <input class="form-control" type="text" id="location" name="house[location]" required>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="image">Image Url</label>
-                <input class="form-control" type="text" id="image" name="house[image]">
+                <input class="form-control" type="text" id="image" name="house[image]" required>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="price">House Price</label>
                 <div class="input-group">
                     <span class="input-group-text" id="price-label">$</span>
                     <input type="text" class="form-control" id="price" placeholder="0.00" aria-label="price"
-                        aria-describedby="price-label" name="house[price]">
+                        aria-describedby="price-label" name="house[price]" required>
                 </div>
             </div>
 
             <div class="mb-3">
                 <label class="form-label" for="description">Description</label>
-                <textarea class="form-control" type="text" id="description" name="house[description]"></textarea>
+                <textarea class="form-control" type="text" id="description" name="house[description]" required></textarea>
             </div>
             <div class="mb-3">
                 <button class="btn btn-success">Add House</button>
