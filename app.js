@@ -2,11 +2,14 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
-const {houseSchema}=require('./schemas.js');
+const {houseSchema, reviewSchema}=require('./schemas.js');
 const catchAsync=require('./utils/catchAsync');
 const ExpressError=require('./utils/ExpressError');
 const methodOverride = require('method-override');
 const House = require('./models/house');
+const Review=require('./models/review');
+
+
 //our database ,, database name -- rentify
 mongoose.connect('mongodb://localhost:27017/rentify', {
     useNewUrlParser: true,
@@ -43,6 +46,17 @@ const validateHouse =(req,res,next)=>{
         next();
     }
 }
+const validateReview =(req,res,next)=>{
+    const {error} = reviewSchema.validate(req.body);
+    if(error){
+        const msg=error.details.map(el=>el.message).join(',')
+        throw new ExpressError(msg,400)
+    }
+    else{
+        next();
+    }
+}
+
 
 app.get('/', (req, res) => {
     res.render('home')
@@ -64,9 +78,11 @@ app.post('/houses',validateHouse,catchAsync(async (req, res, next) => {
     res.redirect(`/houses/${house._id}`)
 }))
 
+// show page
 app.get('/houses/:id', catchAsync(async (req, res,) => {
-     // mongoose find the house by id and save to house
-    const house = await House.findById(req.params.id)
+     // mongoose find the house by id and save to house// populate will let access to reviews
+    const house = await House.findById(req.params.id).populate('reviews');
+
    // houses/show is render with house varible
     res.render('houses/show', { house });
 }));
@@ -94,7 +110,22 @@ app.delete('/houses/:id', catchAsync(async(req,res)=>{
     res.redirect('/houses');
 }));
 
-///    .all is for all routes '*' will match any route 
+app.post('/houses/:id/reviews',validateReview,catchAsync(async (req,res)=>{
+    const house= await House.findById(req.params.id);
+    const review= new Review(req.body.review);
+    house.reviews.push(review);
+    await review.save();
+    await house.save();
+    res.redirect(`/houses/${house._id}`);
+}))
+
+app.delete('/houses/:id/reviews/:reviewId',catchAsync(async (req,res)=>{
+    const { id,reviewId}=req.params;
+    await House.findByIdAndUpdate(id,{$pull:{reviews:reviewId}})
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/houses/${id}`);
+}))
+///    .all is for all types of request '*' will match any route 
 app.all('*',(req,res,next)=>{
    next(new ExpressError('Page not Found',404));
 })
