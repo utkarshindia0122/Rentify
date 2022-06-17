@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
 const { houseSchema } = require('../schemas.js');
+const { isLoggedIn } = require('../middleware');
 
 const ExpressError = require('../utils/ExpressError');
 const House = require('../models/house');
@@ -21,12 +22,12 @@ router.get('/', catchAsync(async (req, res) => {
     res.render('houses/index', { houses })
 }));
 
-router.get('/new', (req, res) => {
+router.get('/new',isLoggedIn, (req, res) => {
     res.render('houses/new');
 })
 
 
-router.post('/', validateHouse, catchAsync(async (req, res, next) => {
+router.post('/',isLoggedIn, validateHouse, catchAsync(async (req, res, next) => {
     // if (!req.body.house) throw new ExpressError('Invalid House Data', 400);
     const house = new House(req.body.house);
     await house.save();
@@ -43,7 +44,7 @@ router.get('/:id', catchAsync(async (req, res,) => {
     res.render('houses/show', { house });
 }));
 
-router.get('/:id/edit', catchAsync(async (req, res) => {
+router.get('/:id/edit',isLoggedIn, catchAsync(async (req, res) => {
     const house = await House.findById(req.params.id)
     if (!house) {
         req.flash('error', 'Cannot find that house!');
@@ -52,14 +53,14 @@ router.get('/:id/edit', catchAsync(async (req, res) => {
     res.render('houses/edit', { house });
 }))
 
-router.put('/:id', validateHouse, catchAsync(async (req, res) => {
+router.put('/:id',isLoggedIn, validateHouse, catchAsync(async (req, res) => {
     const { id } = req.params;
     const house = await House.findByIdAndUpdate(id, { ...req.body.house });
     req.flash('success', 'Successfully updated house!');
     res.redirect(`/houses/${house._id}`)
 }));
 
-router.delete('/:id', catchAsync(async (req, res) => {
+router.delete('/:id',isLoggedIn,catchAsync(async (req, res) => {
     const { id } = req.params;
     await House.findByIdAndDelete(id);
     req.flash('success', 'Successfully deleted house')
