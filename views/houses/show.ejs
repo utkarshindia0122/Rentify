@@ -16,6 +16,9 @@
                     <li class="list-group-item text-muted">
                         <%= house.location%>
                     </li>
+                    <li class="list-group-item">
+                        Submitted by: <%= house.author.username%>
+                    </li>
                     <li class="list-group-item">$<%= house.price%>/month</li>
                 </ul>
                 <div class="card-body">
