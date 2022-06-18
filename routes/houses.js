@@ -30,13 +30,14 @@ router.get('/new',isLoggedIn, (req, res) => {
 router.post('/',isLoggedIn, validateHouse, catchAsync(async (req, res, next) => {
     // if (!req.body.house) throw new ExpressError('Invalid House Data', 400);
     const house = new House(req.body.house);
+    house.author=req.user._id;
     await house.save();
     req.flash('success', 'Successfully made a new house!');
     res.redirect(`/houses/${house._id}`)
 }))
 
 router.get('/:id', catchAsync(async (req, res,) => {
-    const house = await House.findById(req.params.id).populate('reviews');
+    const house = await House.findById(req.params.id).populate('reviews').populate('author');
     if (!house) {
         req.flash('error', 'Cannot find that house!');
         return res.redirect('/houses');

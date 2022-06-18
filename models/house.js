@@ -8,6 +8,10 @@ const HouseSchema= new Schema({
     price:Number,
     description:String,
     location:String,
+    author:{
+        type: Schema.Types.ObjectId,
+        ref:'User'
+    },
     // reviews array will store id's of reviews
     reviews:[
         {
