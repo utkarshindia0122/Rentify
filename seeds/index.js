@@ -26,7 +26,7 @@ const seedDB=async()=>{
         const random= Math.floor(Math.random() * 406);
         const price = Math.floor(Math.random() * 20) + 10;
         const rent = new House({
-            author:'62ad675b2bc4902b8c5be7a2',
+            author:'62ac9fb5daf4cf44b42dc11f',
             location: `${cities[random].city}, ${cities[random].admin_name}`,
             title: `${sample(descriptors)} ${sample(places)}`,
             image: 'https://source.unsplash.com/collection/483251',
