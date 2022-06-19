@@ -26,11 +26,15 @@ const seedDB = async () => {
         const random = Math.floor(Math.random() * 406);
         const price = Math.floor(Math.random() * 20) + 10;
         const rent = new House({
-            author: '62ac9fb5daf4cf44b42dc11f',
+            author: '62ac4b68d1b1822668f61f63',
             location: `${cities[random].city}, ${cities[random].admin_name}`,
             title: `${sample(descriptors)} ${sample(places)}`,
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam dolores vero perferendis laudantium, consequuntur voluptatibus nulla architecto, sit soluta esse iure sed labore ipsam a cum nihil atque molestiae deserunt!',
             price,
+            geometry: {
+                type: "Point",
+                coordinates: [-113.1331, 47.0202]
+            },
             images: [
                 {
                     url: 'https://res.cloudinary.com/dafapcbdf/image/upload/v1655625002/Rentify/l3psbl0xc8n7psguvyvn.jpg',
