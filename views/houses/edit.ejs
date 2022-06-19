@@ -2,7 +2,7 @@
 <div class="row">
     <h1 class="text-center">Edit House</h1>
     <div class="col-6 offset-3">
-        <form action="/houses/<%=house._id%>?_method=PUT" method="POST" novalidate class="validated-form">
+        <form action="/houses/<%=house._id%>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
                 <input class="form-control" type="text" id="title" name="house[title]"
@@ -14,9 +14,11 @@
                     value="<%=house.location %>" required>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="image">Image Url</label>
-                <input class="form-control" type="text" id="image" name="house[image]"
-                    value="<%=house.image %>" required>
+                <label class="form-label" for="image">Add Images</label>
+                <div class="input-group mb-3">
+                    <input type="file" name="image"class="form-control" id="inputGroupFile" multiple>
+                    <label class="input-group-text" for="inputGroupFile">Upload</label>
+                  </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="price">House Price</label>
@@ -31,6 +33,17 @@
                 <label class="form-label" for="description">Description</label>
                 <textarea class="form-control" type="text" id="description"
                     name="house[description]" required><%= house.description%></textarea>
+            </div>
+            <div class="mb-3">
+                <%house.images.forEach(function(img,i){%>
+                    <label for="image-<%=i%>">
+                   <img src="<%=img.thumbnail%>" class="img-thumbnail" alt="" >
+                    </label>
+                   <div class="form-check-inline">
+                    <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%=img.filename%>">
+                   </div>
+                   <label for="image-<%=i%>">Delete ?</label>
+                 <%})%>
             </div>
             <div class="mb-3">
                 <button class="btn btn-info">Update House</button>

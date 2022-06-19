@@ -12,7 +12,16 @@
                 <label class="form-label" for="location">Location</label>
                 <input class="form-control" type="text" id="location" name="house[location]" required>
             </div>
-            <input type="file" name="image" id="" multiple>
+
+
+            <div class="mb-3">
+                <label class="form-label" for="image">Add Images</label>
+                <div class="input-group mb-3">
+                    <input type="file" name="image"class="form-control" id="inputGroupFile" multiple required>
+                    <label class="input-group-text" for="inputGroupFile">Upload</label>
+                  </div>
+            </div>
+
             <!-- <div class="mb-3">
                 <label class="form-label" for="image">Image Url</label>
                 <input class="form-control" type="text" id="image" name="house[image]" required>

@@ -18,7 +18,7 @@ router.get('/new', isLoggedIn,houses.renderNewForm )
 
 router.route('/:id')
     .get(catchAsync(houses.showHouse))
-    .put(isLoggedIn, isAuthor, validateHouse, catchAsync(houses.updateHouse))
+    .put(isLoggedIn, isAuthor, upload.array('image'),validateHouse, catchAsync(houses.updateHouse))
     .delete(isLoggedIn, isAuthor, catchAsync(houses.deleteHouse))
 
 
