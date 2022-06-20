@@ -1,9 +1,8 @@
 <% layout('layouts/boilerplate')%>
     <link rel="stylesheet" href="/stylesheets/stars.css">
 
-    <div class="row">
+    <div class="row"> 
         <div class="col-6">
-
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                 <%if(house.images.length>1){%>
                 <div class="carousel-indicators">
@@ -68,6 +67,8 @@
 
         </div>
         <div class="col-6">
+            <div id='map' style='width: 100%; height: 300px;'></div>
+            
             <% if(currentUser){ %>
                 <h2>Leave a Review</h2>
                 <form action="/houses/<%=house._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate>
@@ -126,3 +127,10 @@
                         <% } %>
         </div>
     </div>
+
+    <script>
+        const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+        const house = <%-JSON.stringify(house) %>;
+    </script>
+
+<script src="/javascripts/showPageMap.js"></script>
