@@ -13,6 +13,7 @@ ImageSchema.virtual('thumbnail').get(function(){
        return this.url.replace('/upload','/upload/w_200');
 });
 
+const opts = { toJSON: { virtuals: true } };
 const HouseSchema= new Schema({
     title:String,
     images:[ImageSchema],
@@ -41,8 +42,13 @@ const HouseSchema= new Schema({
             ref:'Review'
         }
     ]
-});
+}, opts);
 
+HouseSchema.virtual('properties.popUpMarkup').get(function () {
+    return `
+    <strong><a href="/houses/${this._id}">${this.title}</a><strong>
+    <p>${this.description.substring(0, 20)}...</p>`
+});
 
 // this middlewhere is called when we are trying to delete House 
 HouseSchema.post('findOneAndDelete',async function (doc) {
