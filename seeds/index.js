@@ -22,18 +22,21 @@ const sample = array => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async () => {
     await House.deleteMany({});
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 300; i++) {
         const random = Math.floor(Math.random() * 406);
         const price = Math.floor(Math.random() * 20) + 10;
         const rent = new House({
-            author: '62ac4b68d1b1822668f61f63',
+            author: '62acc012740ac91c40c0062f',
             location: `${cities[random].city}, ${cities[random].admin_name}`,
             title: `${sample(descriptors)} ${sample(places)}`,
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam dolores vero perferendis laudantium, consequuntur voluptatibus nulla architecto, sit soluta esse iure sed labore ipsam a cum nihil atque molestiae deserunt!',
             price,
             geometry: {
                 type: "Point",
-                coordinates: [-113.1331, 47.0202]
+                coordinates: [
+                    cities[random].lng,
+                    cities[random].lat,
+                ]
             },
             images: [
                 {
