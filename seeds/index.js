@@ -26,7 +26,7 @@ const seedDB = async () => {
         const random = Math.floor(Math.random() * 406);
         const price = Math.floor(Math.random() * 20) + 10;
         const rent = new House({
-            author: '62acc012740ac91c40c0062f',
+            author: '62ac9fb5daf4cf44b42dc11f',
             location: `${cities[random].city}, ${cities[random].admin_name}`,
             title: `${sample(descriptors)} ${sample(places)}`,
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam dolores vero perferendis laudantium, consequuntur voluptatibus nulla architecto, sit soluta esse iure sed labore ipsam a cum nihil atque molestiae deserunt!',
