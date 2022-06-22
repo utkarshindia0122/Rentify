@@ -1,6 +1,14 @@
 <% layout('layouts/boilerplate')%>
 <div id="cluster-map" ></div>
-<h1>All Houses</h1>
+
+<h2 class="display-6 text-center mb-4">Search and View Our Houses</h2>
+
+<form action="/results/?" class="d-flex mb-5">
+    <input class="form-control me-2" type="search" placeholder="Search Your House ...." name="search_query" aria-label="Search">
+    <button class="btn btn-outline-dark" type="submit">Search</button>
+  </form>
+
+<!-- <h1>All Houses</h1> -->
 
 <% for (let house of houses){%>
 <div class="card mb-3" >

@@ -17,6 +17,7 @@ const User = require('./models/user');
 const userRoutes = require('./routes/users');
 const housesRoutes = require('./routes/houses');
 const reviewsRoutes=require('./routes/reviews');
+const House = require('./models/house');
 
 //our database ,, database name -- rentify
 mongoose.connect('mongodb://localhost:27017/rentify', {
@@ -77,6 +78,14 @@ app.use((req,res,next)=>{
 app.use('/',userRoutes)
 app.use('/houses', housesRoutes)
 app.use('/houses/:id/reviews',reviewsRoutes)
+
+
+app.get('/results', async(req, res) =>{
+    const {search_query} = req.query
+    const houses = await House.find( {location: {$regex: search_query, $options: "i"} })
+  
+    res.render('search.ejs', {houses, search_query})
+})
 
 app.get('/', (req, res) => {
     res.render('home')

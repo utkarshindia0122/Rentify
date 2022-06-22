@@ -1,0 +1,49 @@
+<% layout('layouts/boilerplate.ejs') %>
+
+
+    <h1 class="display-6 mb-4">Search Results For: <%= search_query %>
+    </h1>
+
+    <form action="/results/?" class="d-flex mb-5">
+        <input class="form-control me-2" type="search" placeholder="Search Your House ...." name="search_query"
+            aria-label="Search" value="<%= search_query %>">
+        <button class="btn btn-outline-dark" type="submit">Search</button>
+    </form>
+    <%if(houses.length>=1){%>
+        <% for (let house of houses){%>
+            <div class="card mb-3">
+                <div class="row">
+                    <div class="col-md-4">
+                        <%if(house.images.length) {%>
+                            <img class="img-fluid" alt="" src="<%=house.images[0].url%>">
+                            <% }else {%>
+                                <img class="img-fluid" alt=""
+                                    src="https://res.cloudinary.com/douqbebwk/image/upload/v1600103881/YelpCamp/lz8jjv2gyynjil7lswf4.png">
+                                <% } %>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= house.title %>
+                            </h5>
+
+                            <p class="card-text">
+                                <%= house.description %>
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <%= house.location%>
+                                </small>
+                            </p>
+                            <a class="btn btn-primary" href="/houses/<%=house._id%>">View <%=house.title%></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% }%>
+                <% }else {%>
+
+                    <img class="img-fluid d-flex" style="opacity:0.3; margin-left: auto;margin-right: auto;" alt="result not found"
+                        src="https://res.cloudinary.com/dafapcbdf/image/upload/v1655927612/Rentify/noResult_osoctw.png">
+
+                    <%}%>
